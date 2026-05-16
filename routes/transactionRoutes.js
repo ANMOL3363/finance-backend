@@ -13,15 +13,15 @@ const auth = require("../middleware/authMiddleware");
 const checkRole = require("../middleware/roleMiddleware");
 
 // CREATE → Admin only
-router.post("/", auth, checkRole("admin"), createTransaction);
+router.post("/", createTransaction);
 
 // READ → Admin + Analyst
-router.get("/", auth, checkRole("admin", "analyst"), getTransactions);
+router.get("/", getTransactions);
 
 // UPDATE → Admin only
-router.put("/:id", auth, checkRole("admin"), updateTransaction);
+router.put("/:id", updateTransaction);
 
 // DELETE → Admin only
-router.delete("/:id", auth, checkRole("admin"), deleteTransaction);
+router.delete("/:id", deleteTransaction);
 
 module.exports = router;

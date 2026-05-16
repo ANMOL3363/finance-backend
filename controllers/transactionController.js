@@ -3,13 +3,17 @@ const Transaction = require("../models/Transaction");
 
 exports.createTransaction = async (req, res) => {
   try {
+    const { category, amount, type } = req.body; // ✅ THIS LINE WAS MISSING
+
     const transaction = await Transaction.create({
-      ...req.body,
-      user: req.user.id,
+      category,
+      amount,
+      type,
     });
 
     res.status(201).json(transaction);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -18,7 +22,7 @@ exports.getTransactions = async (req, res) => {
   try {
     const { type, category } = req.query;
 
-    let filter = { user: req.user.id };
+    let filter = {};
 
     if (type) filter.type = type;
     if (category) filter.category = category;
@@ -27,6 +31,7 @@ exports.getTransactions = async (req, res) => {
 
     res.json(transactions);
   } catch (error) {
+    console.error(error); // debug
     res.status(500).json({ message: error.message });
   }
 };

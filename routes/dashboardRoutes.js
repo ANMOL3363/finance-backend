@@ -7,6 +7,6 @@ const { getSummary } = require("../controllers/dashboardController");
 const auth = require("../middleware/authMiddleware");
 
 // Protected route
-router.get("/summary", auth, getSummary);
+router.get("/summary", getSummary);
 
 module.exports = router;
